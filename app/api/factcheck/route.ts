@@ -5,7 +5,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get("query");
   const language = searchParams.get("language") || "en";
-  const API_KEY = process.env.GOOGLE_API_KEY; // Store in .env.local
+  const API_KEY = process.env.GOOGLE_API_KEY;
 
   if (!query) {
     return NextResponse.json({ error: "Query is required" }, { status: 400 });
@@ -24,6 +24,7 @@ export async function GET(request: Request) {
     );
     return NextResponse.json(response.data);
   } catch (error) {
-    return NextResponse.json({ error: "API error" }, { status: 500 });
+    console.error("Fact-check API error:", error); // Use the error
+    return NextResponse.json({ error: "API error occurred" }, { status: 500 });
   }
 }
