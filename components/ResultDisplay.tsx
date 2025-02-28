@@ -1,6 +1,8 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image"; // Add this
 import { FactCheckResult } from "../types";
 
 interface ResultDisplayProps {
@@ -33,10 +35,12 @@ export default function ResultDisplay({ result }: ResultDisplayProps) {
           <p>
             <span className="font-medium bg-gradient-to-r from-purple-600 to-violet-600 text-transparent bg-clip-text">Rating:</span> {result.rating}
             {result.isFake && (
-              <img
+              <Image
                 src="https://via.placeholder.com/100x50?text=FAKE"
                 alt="Fake News Indicator"
-                className="inline-block ml-2 h-6"
+                width={100}
+                height={50}
+                className="inline-block ml-2"
               />
             )}
           </p>

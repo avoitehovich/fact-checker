@@ -8,7 +8,7 @@ import ResultDisplay from "./ResultDisplay";
 
 interface ChatMessageProps {
   message: ChatMessageType;
-  onEdit: (id: string, newText: string) => void;
+  onEdit: (messageId: string, newText: string) => void;
   isEditing: boolean;
   setEditingMessageId: (id: string | null) => void;
 }

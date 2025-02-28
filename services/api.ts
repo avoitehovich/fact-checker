@@ -8,6 +8,9 @@ export const checkFacts = debounce(
     if (!input) return null;
     let query = input;
 
+    // Simulate loading delay for "Typing..." indicator
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     try {
       if (navigator.onLine) {
         const response = await fetch(`/api/factcheck?query=${encodeURIComponent(query)}&language=en`);
