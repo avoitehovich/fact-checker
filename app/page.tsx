@@ -47,6 +47,7 @@ export default function Home() {
   // Save history to localStorage when it changes
   useEffect(() => {
     if (typeof window !== "undefined" && history.length > 0) {
+      console.log("Saving to localStorage:", history);
       localStorage.setItem("factCheckHistory", JSON.stringify(history));
     }
   }, [history]);
