@@ -11,6 +11,11 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Query is required" }, { status: 400 });
   }
 
+  if (!API_KEY) {
+    console.error("API Key is missing in environment variables");
+    return NextResponse.json({ error: "Server configuration error: API key missing" }, { status: 500 });
+  }
+
   try {
     const response = await axios.get(
       "https://factchecktools.googleapis.com/v1alpha1/claims:search",
@@ -24,7 +29,16 @@ export async function GET(request: Request) {
     );
     return NextResponse.json(response.data);
   } catch (error) {
-    console.error("Fact-check API error:", error); // Use the error
-    return NextResponse.json({ error: "API error occurred" }, { status: 500 });
+    console.error("Google API request failed:", {
+      message: error instanceof Error ? error.message : "Unknown error",
+      response: error instanceof axios.AxiosError && error.response ? {
+        status: error.response.status,
+        data: error.response.data,
+      } : "No response data",
+    });
+    return NextResponse.json(
+      { error: "API error occurred", details: error instanceof Error ? error.message : "Unknown error" },
+      { status: 500 }
+    );
   }
 }
