@@ -9,3 +9,11 @@ export interface FactCheckResult {
     expertReview?: string;
     isFake?: boolean;
   }
+  
+  export interface ChatMessage {
+    id: string;                // Unique identifier
+    text: string;              // User input
+    result?: FactCheckResult;  // Fact-check result
+    timestamp: number;         // For edit time limit
+    edited?: boolean;          // Track if edited
+  }
